@@ -1,0 +1,95 @@
+body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+}
+
+.container {
+	width: 100%;
+	padding-top: 100%;
+	overflow: hidden;
+	position: relative;
+}
+
+@media screen and (min-width: 769px) {
+	.container {
+		width: 50%;
+		padding-top: 50%;
+	}
+}
+
+@media screen and (min-width: 1140px) {
+   .container {
+      width: 560px;
+      padding-top: 560px;
+   }
+}
+
+.image-stage {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	transition: all 0.1s ease;
+	cursor: zoom-in;
+}
+
+.image-stage img {
+	width: 100%;
+	transform: scale(1);
+	transition: all 0.3s ease;
+	touch-action: pan-y;
+	user-select: none;
+	-webkit-user-drag: none;
+}
+
+.image-stage.zoom-in {
+	cursor: -webkit-grab;
+}
+
+.image-stage.zoom-in img {
+	transform: scale(3);
+}
+
+.controls {
+	position: absolute;
+	right: 2em;
+	bottom: 2em;
+	z-index: 2;
+}
+
+.controls button {
+	display: block;
+	width: 20px;
+	height: 20px;
+	padding: 0;
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.controls button:focus,
+.controls button:active {
+	outline: none;
+}
+
+.control-in {
+	opacity: 1;
+	margin-bottom: 2em;
+}
+
+.control-in.zoomed-in,
+.enable-panning .control-in {
+	opacity: .4;
+}
+
+.control-out {
+	opacity: .4;
+}
+
+.enable-panning .control-out {
+	opacity: 1;
+}
