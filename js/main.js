@@ -14,15 +14,14 @@ var x_img,
 
 app.init = function() {
 
-	app.zoom();
-	app.pan();
+	app.makeItZoom();
+	app.makeItPan();
 
 };
 
-app.zoom = function() {
+app.makeItZoom = function() {
 
 	img.addEventListener('click', app.toggleZoom);
-   img.addEventListener('touchend', app.toggleZoom);
 	zoomInBtn.addEventListener('click', app.zoomIn);
 	zoomOutBtn.addEventListener('click', app.zoomOut);
 
@@ -70,7 +69,7 @@ app.zoomOut = function() {
 
 };
 
-app.pan = function() {
+app.makeItPan = function() {
 
 	img.addEventListener('mousedown', function(e) {
 
