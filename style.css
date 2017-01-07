@@ -77,5 +77,18 @@ body {
 }
 
 .control-in {
+   opacity: 1;
 	margin-bottom: 2em;
+}
+
+.control-out {
+   opacity: .4;
+}
+
+.image-stage.zoom-in + .controls .control-in {
+   opacity: .4;
+}
+
+.image-stage.zoom-in + .controls .control-out {
+   opacity: 1;
 }

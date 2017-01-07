@@ -15,7 +15,7 @@ minus.addEventListener('click', (e) => {
    img.style.transform = 'translateX(' + 0 + 'px' + ') translateY(' + 0 + 'px' + ')';
 });
 
-product.addEventListener("mousedown", (e) => {
+function getPositions(e) {
 
    isDown = true;
 
@@ -24,21 +24,13 @@ product.addEventListener("mousedown", (e) => {
 
    product.classList.add('zoom-in');
 
-});
+}
 
-product.addEventListener("mouseup", (e) => {
-
+function disable(e) {
    isDown = false;
+}
 
-});
-
-product.addEventListener("mouseleave", (e) => {
-
-   isDown = false;
-
-});
-
-product.addEventListener("mousemove", (e) => {
+function zoomPan(e) {
 
    if(!isDown) return; //stop fn if mouse is not dowm
 
@@ -48,6 +40,19 @@ product.addEventListener("mousemove", (e) => {
    const y = e.pageY - product.offsetTop;
    const panX = x - startX;
    const panY = y - startY;
+
    img.style.transform = 'translateX(' + panX + 'px' + ') translateY(' + panY + 'px' + ')';
 
-});
+}
+
+// Desktop
+product.addEventListener("mousedown", getPositions);
+product.addEventListener("mouseup", disable);
+product.addEventListener("mouseleave", disable);
+product.addEventListener("mousemove", zoomPan);
+
+// Touch
+product.addEventListener("touchstart", getPositions);
+product.addEventListener("touchend", disable);
+product.addEventListener("touchcancel", disable);
+product.addEventListener("touchmove", zoomPan);
