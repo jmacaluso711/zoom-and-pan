@@ -77,19 +77,5 @@ body {
 }
 
 .control-in {
-	opacity: 1;
 	margin-bottom: 2em;
-}
-
-.control-in.zoomed-in,
-.enable-panning .control-in {
-	opacity: .4;
-}
-
-.control-out {
-	opacity: .4;
-}
-
-.enable-panning .control-out {
-	opacity: 1;
 }

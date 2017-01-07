@@ -1,102 +1,53 @@
-const app = {},
-img = document.getElementById('image-stage'),
-body = document.querySelector('body'),
-zoomInBtn = document.getElementById('control-in'),
-zoomOutBtn = document.getElementById('control-out');
+const product = document.querySelector('.image-stage');
+const img = document.querySelector('.image-wrap');
+const plus = document.querySelector('.control-in');
+const minus = document.querySelector('.control-out');
+let isDown = false;
+let startX;
+let stateY;
 
-var x_img,
-    y_img,
-    x_cursor,
-    y_cursor,
-    timer,
-    zoomed = false,
-    mouseDown = false;
+plus.addEventListener('click', (e) => {
+   product.classList.add('zoom-in');
+});
 
-app.init = function() {
+minus.addEventListener('click', (e) => {
+   product.classList.remove('zoom-in');
+   img.style.transform = 'translateX(' + 0 + 'px' + ') translateY(' + 0 + 'px' + ')';
+});
 
-	app.makeItZoom();
-	app.makeItPan();
+product.addEventListener("mousedown", (e) => {
 
-};
+   isDown = true;
 
-app.makeItZoom = function() {
+   startX = e.pageX - product.offsetLeft;
+   startY = e.pageY - product.offsetTop;
 
-	img.addEventListener('click', app.toggleZoom);
-	zoomInBtn.addEventListener('click', app.zoomIn);
-	zoomOutBtn.addEventListener('click', app.zoomOut);
+   product.classList.add('zoom-in');
 
-};
+});
 
-app.toggleZoom = function(e) {
+product.addEventListener("mouseup", (e) => {
 
-   e.stopPropagation();
+   isDown = false;
 
-	if(zoomed) {
+});
 
-		img.classList.remove('zoom-in');
-		body.classList.remove('enable-panning');
-		zoomInBtn.classList.remove('zoomed-in');
-		img.style.transform = 'translateX(' + 0 + 'px' + ') translateY(' + 0 + 'px' + ')';
-		zoomed = false;
+product.addEventListener("mouseleave", (e) => {
 
-	} else {
+   isDown = false;
 
-		img.classList.add('zoom-in');
-		body.classList.add('enable-panning');
-		zoomInBtn.classList.add('zoomed-in');
-		zoomed = true;
+});
 
-	}
+product.addEventListener("mousemove", (e) => {
 
-};
+   if(!isDown) return; //stop fn is mouse no dowm
 
-app.zoomIn = function() {
+   e.preventDefault();
 
-	img.classList.add('zoom-in');
-	body.classList.add('enable-panning');
-	zoomInBtn.classList.add('zoomed-in');
-	zoomed = true;
+   const x = e.pageX - product.offsetLeft;
+   const y = e.pageY - product.offsetTop;
+   const panX = x - startX;
+   const panY = y - startY;
+   img.style.transform = 'translateX(' + panX + 'px' + ') translateY(' + panY + 'px' + ')';
 
-};
-
-app.zoomOut = function() {
-
-	img.classList.remove('zoom-in');
-	body.classList.remove('enable-panning');
-	zoomInBtn.classList.remove('zoomed-in');
-	zoomed = false;
-	img.style.transform = 'translateX(' + 0 + 'px' + ') translateY(' + 0 + 'px' + ')';
-
-};
-
-app.makeItPan = function() {
-
-	img.addEventListener('mousedown', function(e) {
-
-  		x_img = e.clientX,
-  		y_img = e.clientY,
-  		mouseDown = true;
-
-	});
-
-	document.addEventListener('mouseup', function() {
-
-		mouseDown = false;
-
-	});
-
-	img.addEventListener('mousemove', function(e){
-
-   	if(!mouseDown) return;
-   	if(!zoomed) return;
-
-		x_cursor = e.clientX,
-		y_cursor = e.clientY;
-
-		img.style.transform = 'translateX('+(x_cursor - x_img) + 'px'+') translateY('+(e.clientY - y_img) + 'px'+')';
-
-	});
-
-};
-
-app.init();
+});
