@@ -40,7 +40,7 @@ product.addEventListener("mouseleave", (e) => {
 
 product.addEventListener("mousemove", (e) => {
 
-   if(!isDown) return; //stop fn is mouse no dowm
+   if(!isDown) return; //stop fn if mouse is not dowm
 
    e.preventDefault();
 
